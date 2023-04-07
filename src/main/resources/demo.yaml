@@ -1,0 +1,82 @@
+openapi: "3.0.0"
+info:
+  title: Simple API overview
+  version: 2.0.0
+paths:
+  ###############################################################################
+  ## API Information
+  /health:
+    get:
+      summary: Tests basic health of the service
+      operationId: getHealth
+      tags:
+        - API Information
+      parameters:
+        - $ref: '#/components/parameters/xRequestId'
+      responses:
+        '200':
+          description: Health response in case of success.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponseOk"
+        default:
+          description: Health response in case of failure.
+          headers:
+            X-Correlation-ID:
+              $ref: '#/components/headers/X-Correlation-ID'
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponseFail"
+
+components:
+  parameters:
+    xRequestId:
+      name: X-Request-ID
+      in: header
+      schema:
+        type: string
+
+  headers:
+    X-Correlation-ID:
+      schema:
+        type: string
+      example: 4199533b-6290-41db-8d79-edf4f4019a74
+
+    X-Request-ID:
+      schema:
+        type: string
+
+  schemas:
+    HealthResponseFail:
+      description: Returns the health of the service
+      properties:
+        status:
+          description: |
+            Health status of the service:
+            * `ok` - the service is operating normally
+            * `fail` - the service is currently encountering a failure
+          type: string
+          enum:
+            - fail
+
+    HealthResponseOk:
+      description: Returns the health of the service
+      properties:
+        status:
+          description: |
+            Health status of the service:
+
+            * `ok` - the service is operating normally
+            * `fail` - the service is currently encountering a failure
+          type: string
+          enum:
+            - ok

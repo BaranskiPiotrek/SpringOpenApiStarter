@@ -1,0 +1,5 @@
+com/example/demo/DemoApplication.class
+com/example/demo/model/HealthResponseOk$StatusEnum.class
+com/example/demo/api/ApiUtil.class
+com/example/demo/api/HealthApi.class
+com/example/demo/model/HealthResponseOk.class
